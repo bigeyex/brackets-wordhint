@@ -1,4 +1,10 @@
 /*
+ * Licenced under MIT
+ * Author: Wang Yu <bigeyex@gmail.com>
+ * github: https://github.com/bigeyex/brackets-wordhint
+*/
+
+/*
  * Copyright (c) 2013 Adobe Systems Incorporated. All rights reserved.
  *  
  * Permission is hereby granted, free of charge, to any person obtaining a
