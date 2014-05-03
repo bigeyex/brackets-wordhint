@@ -137,6 +137,8 @@ define(function (require, exports, module) {
         var textBeforeCursor = this.editor.document.getRange(lineBeginning, cursor);
         var symbolBeforeCursorArray = textBeforeCursor.match(this.currentTokenDefinition);
         var hintList = [];
+        if(symbolBeforeCursorArray === null) return null;
+        if(cachedWordList === null) return null;
         for(var i in this.cachedWordList){
             if(this.cachedWordList[i].indexOf(symbolBeforeCursorArray[0])==0){
                 hintList.push(this.cachedWordList[i]);
@@ -167,8 +169,9 @@ define(function (require, exports, module) {
         var textBeforeCursor = this.editor.document.getRange(lineBeginning, cursor);
         var indexOfTheSymbol = textBeforeCursor.search(this.currentTokenDefinition);
         var replaceStart = {line:cursor.line,ch:indexOfTheSymbol};
+        if(indexOfTheSymbol == -1) return false;
         this.editor.document.replaceRange(hint, replaceStart, cursor);
-        
+        console.log("hint: "+hint+" | lineBeginning: "+lineBeginning.line+', '+lineBeginning.ch+" | textBeforeCursor: "+textBeforeCursor+" | indexOfTheSymbol: "+indexOfTheSymbol+" | replaceStart: "+replaceStart.line+', '+replaceStart.ch);
         
         return false;
     };
