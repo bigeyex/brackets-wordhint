@@ -83,7 +83,8 @@ define(function (require, exports, module) {
             var rawWordList = editor.document.getText().match(this.tokenDefinition);
             this.cachedWordList = [];
             for(var i in rawWordList){
-               var word = rawWordList[i]; if(this.cachedWordList.toLowerCase().indexOf(word.toLowerCase())==-1){
+               var word = rawWordList[i]; 
+					if(!this.cachedWordList.find(function(item) { return item.toLowerCase()==word.toLowerCase() })) {
                    this.cachedWordList.push(word);
                }
             }
@@ -97,7 +98,7 @@ define(function (require, exports, module) {
         if(symbolBeforeCursorArray){
             // find if the half-word inputed is in the list
             for(var i in this.cachedWordList){
-                if(this.cachedWordList[i].toLowerCase().indexOf(symbolBeforeCursorArray[0].toLowerCase())==0){
+                if(this.cachedWordList[i].find(function(item) { return item.toLowerCase()==symbolBeforeCursorArray[0].toLowerCase() })) {
                     return true;  
                 }
             }
@@ -140,7 +141,7 @@ define(function (require, exports, module) {
         if(symbolBeforeCursorArray === null) return null;
         if(cachedWordList === null) return null;
         for(var i in this.cachedWordList){
-            if(this.cachedWordList[i].toLowerCase().indexOf(symbolBeforeCursorArray[0].toLowerCase())==0){
+            if(this.cachedWordList[i].find(function(item) { return item.toLowerCase()==symbolBeforeCursorArray[0].toLowerCase() })){
                 hintList.push(this.cachedWordList[i]);
             }
         }
