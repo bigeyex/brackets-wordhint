@@ -98,7 +98,7 @@ define(function (require, exports, module) {
         if(symbolBeforeCursorArray){
             // find if the half-word inputed is in the list
             for(var i in this.cachedWordList){
-                if(this.cachedWordList[i].find(function(item) { return item.toLowerCase()==symbolBeforeCursorArray[0].toLowerCase() })) {
+                if(this.cachedWordList[i].toLowerCase().indexOf(symbolBeforeCursorArray[0].toLowerCase())) {
                     return true;  
                 }
             }
@@ -141,7 +141,7 @@ define(function (require, exports, module) {
         if(symbolBeforeCursorArray === null) return null;
         if(cachedWordList === null) return null;
         for(var i in this.cachedWordList){
-            if(this.cachedWordList[i].find(function(item) { return item.toLowerCase()==symbolBeforeCursorArray[0].toLowerCase() })){
+            if(this.cachedWordList[i].toLowerCase().indexOf(symbolBeforeCursorArray[0].toLowerCase())){
                 hintList.push(this.cachedWordList[i]);
             }
         }
