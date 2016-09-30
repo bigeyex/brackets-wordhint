@@ -55,7 +55,7 @@ define(function (require, exports, module) {
         this.cachedMatches = [];
         this.cachedWordList = [];
         this.tokenDefinition = /[\$a-zA-Z][\-a-zA-Z0-9_]*[a-zA-Z0-9_]+/g;
-        this.currentTokenDefinition = /[\$a-zA-Z][\-a-zA-Z0-9_]+$/g;
+        this.currentTokenDefinition = /[\$a-zA-Z]+$/g;
     }
     
     
@@ -83,21 +83,22 @@ define(function (require, exports, module) {
             var rawWordList = editor.document.getText().match(this.tokenDefinition);
             this.cachedWordList = [];
             for(var i in rawWordList){
-               var word = rawWordList[i]; if(this.cachedWordList.indexOf(word)==-1){
+               var word = rawWordList[i]; 
+               if(!this.cachedWordList.find(function(item) { return item.toLowerCase().indexOf(word.toLowerCase())>=0 } )){
                    this.cachedWordList.push(word);
                }
             }
         }
         this.lastLine = cursor.line;
         
-        // if has entered more than 2 characters - start completion
+        // if has entered more than 1 characters - start completion
         var lineBeginning = {line:cursor.line,ch:0};
         var textBeforeCursor = this.editor.document.getRange(lineBeginning, cursor);
         var symbolBeforeCursorArray = textBeforeCursor.match(this.currentTokenDefinition);
         if(symbolBeforeCursorArray){
             // find if the half-word inputed is in the list
             for(var i in this.cachedWordList){
-                if(this.cachedWordList[i].indexOf(symbolBeforeCursorArray[0])==0){
+                if(this.cachedWordList[i].toLowerCase().indexOf(symbolBeforeCursorArray[0].toLowerCase())==0){
                     return true;  
                 }
             }
@@ -140,7 +141,7 @@ define(function (require, exports, module) {
         if(symbolBeforeCursorArray === null) return null;
         if(cachedWordList === null) return null;
         for(var i in this.cachedWordList){
-            if(this.cachedWordList[i].indexOf(symbolBeforeCursorArray[0])==0){
+            if(this.cachedWordList[i].toLowerCase().indexOf(symbolBeforeCursorArray[0].toLowerCase())==0){
                 hintList.push(this.cachedWordList[i]);
             }
         }
