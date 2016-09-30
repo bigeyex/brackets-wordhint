@@ -55,7 +55,7 @@ define(function (require, exports, module) {
         this.cachedMatches = [];
         this.cachedWordList = [];
         this.tokenDefinition = /[\$a-zA-Z][\-a-zA-Z0-9_]*[a-zA-Z0-9_]+/g;
-        this.currentTokenDefinition = /[\$a-zA-Z][\-a-zA-Z0-9_]+$/g;
+        this.currentTokenDefinition = /[\$a-zA-Z]+$/g;
     }
     
     
@@ -91,7 +91,7 @@ define(function (require, exports, module) {
         }
         this.lastLine = cursor.line;
         
-        // if has entered more than 2 characters - start completion
+        // if has entered more than 1 characters - start completion
         var lineBeginning = {line:cursor.line,ch:0};
         var textBeforeCursor = this.editor.document.getRange(lineBeginning, cursor);
         var symbolBeforeCursorArray = textBeforeCursor.match(this.currentTokenDefinition);
